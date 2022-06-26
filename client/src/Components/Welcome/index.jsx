@@ -31,6 +31,7 @@ const differentInputs = [
 const Input = ({ placeholder, name, type, value, handleChange }) => {
   return (
     <input
+      key={name}
       placeholder={placeholder}
       type={type}
       step="0.0001"
@@ -42,13 +43,19 @@ const Input = ({ placeholder, name, type, value, handleChange }) => {
 };
 
 const Welcome = () => {
-  const { connectWallet, currentAccount } = useContext(TransactionContext);
+  const {
+    connectWallet,
+    currentAccount,
+    handleChange,
+    formData,
+    sendTransaction,
+  } = useContext(TransactionContext);
 
   const handleSubmit = (e) => {
     const { addressTo, amount, keyword, message } = formData;
   
     e.preventDefault();
-
+    console.log(formData);
     if (!addressTo || !amount || !keyword || !message) return;
 
     sendTransaction();
@@ -118,7 +125,7 @@ const Welcome = () => {
             {differentInputs.map((inputItem) => {
               const { placeholder, name, type } = inputItem;
             return (
-              <Input placeholder={placeholder} name={name} type={type} handleChange={() => handleChange} />
+              <Input placeholder={placeholder} name={name} type={type} handleChange={(evt) => handleChange(evt, name)} />
             )})}
             <div className="h-[1px] w-full bg-gray-400 my-2" />
 
@@ -127,7 +134,7 @@ const Welcome = () => {
               : (
                 <button
                   type="button"
-                  onClick={() => handleSubmit}
+                  onClick={(e) => handleSubmit(e)}
                   className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
                 >
                   Send now
