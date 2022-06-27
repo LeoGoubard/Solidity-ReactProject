@@ -28,7 +28,6 @@ export const TransactionProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (evt, name) => {
-    console.log('name', name);
     setFormData((prevState) => ({ ...prevState, [name]: evt.target.value }));
   }
 
@@ -47,7 +46,6 @@ export const TransactionProvider = ({ children }) => {
         keyword: transactionItem.keyword,
         amount: parseInt(transactionItem.amount._hex) / (10 ** 18)
       }))
-      console.log(structuredTransactions);
       setTransactions(structuredTransactions);
     } catch (error) {
       console.log(error)
@@ -65,7 +63,6 @@ export const TransactionProvider = ({ children }) => {
       } else {
         console.log('No accounts found');
       }
-      console.log(accounts)
     } catch (error) {
       console.log(error);
 
@@ -101,7 +98,6 @@ export const TransactionProvider = ({ children }) => {
   }
 
   const sendTransaction = async () => {
-    console.log(formData);
     try {
       if(!ethereum) return alert("please install metamask");
       const { addressTo, amount, keyword, message } = formData;

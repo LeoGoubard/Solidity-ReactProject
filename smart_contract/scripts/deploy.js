@@ -3,8 +3,6 @@ const main = async () => {
   const transactionsContract = await transactionsFactory.deploy();
 
   await transactionsContract.deployed();
-
-  console.log("Transactions address: ", transactionsContract.address);
 };
 
 const runMain = async () => {
